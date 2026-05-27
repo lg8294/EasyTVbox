@@ -1,5 +1,4 @@
 // @name 咖啡直播
-// @author modified by ChatGPT
 // @description 咖啡直播体育赛事直播 + 录像回放
 // @version 1.4.0
 
