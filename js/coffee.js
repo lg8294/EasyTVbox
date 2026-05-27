@@ -400,38 +400,38 @@ function filterLiveItems(items = [], league = '', type = '', isHot = false) {
 
 // ========== 直播接口 ==========
 
-function parseLiveCardsFromHtml(html = '') {
-    const text = safeText(html);
-    if (!text || text === '加载中...') return [];
+async function fetchLiveByApi(page = 1, size = 30, league = '', type = '', isHot = false) {
+    const date = todayString();
+    
+    const urls = [
+        `${host}/api/v1/live`,
+        `${host}/api/v1/matches/live`,
+        `${host}/api/v1/lives`,
+        `${host}/api/v1/rooms`,
+        `${host}/api/v1/live/list`
+    ];
+    
+    const paramList = [
+        { page, size, league, type, date },
+        { page, size, league, type, is_live: 1 },
+        { page, size, league, type, status: 'live' }
+    ];
 
-    const list = [];
-    const roomReg = /\/pc\/room\/(\d+)/g;
-    let m;
-
-    while ((m = roomReg.exec(text)) !== null) {
-        const roomId = m[1];
-        const start = Math.max(0, m.index - 800);
-        const end = Math.min(text.length, m.index + 800);
-        const block = text.slice(start, end);
-
-        const titleMatch = block.match(/([\u4e00-\u9fa5A-Za-z0-9\s]+?\s+vs\s+[\u4e00-\u9fa5A-Za-z0-9\s]+)/i);
-        const title = titleMatch ? titleMatch[1].replace(/\s+/g, ' ').trim() : `直播房间 ${roomId}`;
-
-        const imgMatch = block.match(/https?:\/\/[^"'<>]+?\.(?:jpg|jpeg|png|webp)/i);
-        const pic = imgMatch ? imgMatch[0] : '';
-
-        list.push({
-            id: roomId,
-            room_id: roomId,
-            room_url: `${host}/pc/room/${roomId}`,
-            title: title,
-            cover: pic,
-            status_text: 'LIVE',
-            is_live: 1
-        });
+    for (const url of urls) {
+        for (const params of paramList) {
+            const data = await requestJsonSafe(url, params, {
+                Referer: host + '/pc/live'
+            });
+            if (!data) continue;
+            
+            const arr = getDataArray(data);
+            if (arr.length > 0) {
+                const filtered = filterLiveItems(arr, league, type, isHot);
+                if (filtered.length) return filtered.slice(0, size);
+            }
+        }
     }
-
-    return list;
+    return [];
 }
 
 async function fetchLiveByPage(page = 1, size = 30, league = '', type = '', isHot = false) {
