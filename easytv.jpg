@@ -27,7 +27,7 @@
         },
         {
             "key": "ConfigCenter",
-            "name": "网盘配置|2026-07-02",
+            "name": "网盘配置|2026-7-2",
             "type": 3,
             "api": "csp_ConfigCenter",
             "searchable": 0,
@@ -50,35 +50,35 @@
             "key": "腾讯视频",
             "name": "📺️腾讯｜官方",
             "type": 3,
-            "api": "./js/drpy2.min.js",
+            "api": "./js/lib/drpy2.min.js",
             "ext": "./lib/腾讯.png"
         },
         {
             "key": "爱奇艺视频",
             "name": "📺️爱奇艺｜官方",
             "type": 3,
-            "api": "./js/drpy2.min.js",
+            "api": "./js/lib/drpy2.min.js",
             "ext": "./lib/爱奇艺.png"
         },
         {
             "key": "优酷视频",
             "name": "📺️优酷｜官方",
             "type": 3,
-            "api": "./js/drpy2.min.js",
+            "api": "./js/lib/drpy2.min.js",
             "ext": "./lib/优酷.png"
         },
         {
             "key": "芒果视频",
             "name": "📺️芒果｜官方",
             "type": 3,
-            "api": "./js/drpy2.min.js",
+            "api": "./js/lib/drpy2.min.js",
             "ext": "./lib/芒果.png"
         },
         {
             "key": "哔哩哔哩",
             "name": "📺️B站｜官方",
             "type": 3,
-            "api": "./js/drpy2.min.js",
+            "api": "./js/lib/drpy2.min.js",
             "ext": "./lib/B站.png"
         },
         {
